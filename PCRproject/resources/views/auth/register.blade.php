@@ -1,6 +1,6 @@
 @extends('frames.registrationframe')
 
-@section('auth')
+@section('content')
     <div class="text-xl p-5">
         
       <form action="{{ route('saveuser') }}" method="POST">

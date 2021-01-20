@@ -29,7 +29,11 @@ class RegistrationController extends Controller
         ]);
 
         // sign in user
+        auth()->attempt($request->only('email', 'password')); // user model or null
+
+        
 
         // direct to home page
+        return redirect()->route('dashboard');
     }
 }
