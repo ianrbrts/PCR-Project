@@ -41,7 +41,7 @@
     </div>
 
     <!-- form for filling out task info -->
-    <div class="rounded-lg bg-white p-10 mt-10 lg:mx-96 md:mx-40 md:min-h-full shadow-md hover:shadow-xl transition duration-400 ease-in-out">
+    <div class="rounded-lg bg-gray-50 p-10 mt-10 lg:mx-96 md:mx-40 md:min-h-full shadow-md hover:shadow-xl transition duration-400 ease-in-out">
         <div id="modalBox" class="text-center mx-auto hidden">
             <form action="{{ route('savetask') }}" method="post">
                 @csrf
@@ -106,6 +106,7 @@
                 </div>
             </form>
         </div>
+
         <!-- content will be the tasks listed in the table -->
         @yield('content')
       
@@ -118,7 +119,7 @@
         $(document).ready(function(){
             $("#addTask").click(function() {
                 $("#modalBox").slideToggle();
-        });
+            });
         });
 
     </script>
