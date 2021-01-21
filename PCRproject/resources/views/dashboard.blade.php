@@ -26,7 +26,7 @@
             
                 <!-- taking in the tasks collection one at a time as an object called task
                 we can get each attribute from the collection here -->
-                @foreach ($tasks as $task)
+                @foreach ($tasks->sortByDesc('created_at') as $task)
                     <tbody>
                         <tr class="rounded-xl bg-gray-100 hover:bg-white overflow-hidden">
                             <td class="text-left px-5 text-center py-5">{{ $task->taskdesc }}</td>
