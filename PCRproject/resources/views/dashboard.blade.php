@@ -2,35 +2,40 @@
 
 @section('content')
     <div class="text-lg p-5">
-        <p class="text-left text-2xl bold mx-auto">Public tasks</p>
-
         
 
-        <table class="table-fixed flex-row border-collapse bg-white rounded-lg mx-auto mt-10 shadow-xl">
-            <thead class="justify-between">
-                    <tr class="">
-                        <th class="w-1/4 pb-5">Task description</th>
-                        <th class="w-1/5 pb-5">Date posted</th>
-                        <th class="w-1/8 pb-5">Priority</th>
-                        <th class="w-1/8 pb-5">Author</th>
-                        <th class="w-1/8 pb-5">Due</th>
-                        <th class="w-1/8 pb-5">Status</th>
-                        <th class="w-1/6 pb-5 ">Assigned to</th>
+        <!-- checking if there are any posts in the database, then showing a table row for each task -->
+        @if ($tasks->count())
+        <p class="text-left text-2xl font-semibold mx-auto">Shared tasks - Home</p>
+        <table class="overflow-hidden flex-row border-collapse rounded-lg mx-auto mt-10 shadow-xl">
+            <thead>
+                    <tr>
+                        <th class="w-1/2 pb-5 pt-6 bg-gray-200 text-blue-500">Task description</th>
+                        <th class="w-1/5 pb-5 pt-6 bg-gray-200 text-blue-500">Date posted</th>
+                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Priority</th>
+                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Author</th>
+                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Due</th>
+                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Status</th>
+                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500">Assigned to</th>
+                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500">Last updated</th>
+                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500"></th>
+                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500"></th>
                     </tr>
             </thead>
 
-            <!-- checking if there are any posts in the database, then showing a table row for each task -->
-            @if ($tasks->count())
+            
+            
                 @foreach ($tasks as $task)
                     <tbody>
-                        <tr>
-                            <td class="px-4 text-center pb-5 ">{{ $task->taskdesc }}</td>
-                            <td class="px-4 text-center pb-5 text-sm">{{ $task->created_at }}</td>
+                        <tr class="rounded-xl bg-gray-100 hover:bg-white overflow-hidden">
+                            <td class="px-4 pt-5 text-center pb-5 ">{{ $task->taskdesc }}</td>
+                            <td class="px-4 text-center pb-5">{{ $task->created_at->format('M j, h:ia') }}</td>
                             <td class="px-4 text-center pb-5 ">{{ $task->priority }}</td>
                             <td class="px-4 text-center pb-5 ">{{ $task->user->name }}</td>
-                            <td class="px-4 text-center pb-5 text-sm">{{ $task->dueDate }}</td>
+                            <td class="px-4 text-center pb-5 text-sm">{{ date('M j, h:ia', strtotime($task->dueDate)) }}</td>
                             <td class="px-4 text-center pb-5 text-sm">{{ $task->status }}</td>
                             <td class="px-4 text-center pb-5 ">{{ $task->assignedTo }}</td>
+                            <td class="px-4 text-center pb-5 ">{{ $task->updated_at->format('M j, h:ia') }}</td>
                             <td class="px-4 text-center pb-5 ">
                                 <button id= "editbutton{{ $task->id }}" class="text-sm bg-blue-500 rounded-xl px-3 py-2 shadow-md text-white focus:outline-none hover:bg-blue-800">
                                     Edit
@@ -49,11 +54,13 @@
                                         </button>
                                     </form>
                                 </td>
+                            @else  
+                                <td></td>
                             @endif
                         </tr>
-                        <tr >
+                        <tr>
                             <div>
-                                <div class="text-center mx-auto hidden" id="editmenu{{ $task->id }}">Editing task {{ $task->id }}
+                                <div class="text-center mx-auto hidden" id="editmenu{{ $task->id }}">
 
                                 <form action="{{ route('updatetask') }}" method="post">
                                     @csrf
@@ -132,9 +139,9 @@
                     </script>
                 @endforeach
             @else
-                <div class="text-lg mx-auto">
+                <div class="text-xl text-center">
                     <p>
-                        No tasks yet!
+                        <span>No tasks yet! Click on <p class="text-center mx-auto bg-blue-400 rounded-3xl text-white px-5 py-2 my-3 w-36">Add a task</p> at the top to begin. </span>
                     </p>
                 </div>
             @endif

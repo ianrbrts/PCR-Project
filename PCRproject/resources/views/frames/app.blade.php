@@ -18,7 +18,6 @@
 
         <nav class="mx-auto flex justify-around">
             <ul class="flex items-center">
-                <li class="hover:bg-blue-400 hover:text-white rounded-3xl px-5 py-2"><a href="/">Tasks</a></li>
                 @auth
                     <li id="addTask" class="hover:bg-blue-400 hover:text-white rounded-3xl px-5 py-2 cursor-pointer">Add a task</li>
                 @endauth
@@ -41,7 +40,7 @@
     </div>
 
     <!-- form for filling out task info -->
-    <div class="rounded-lg bg-gray-50 p-10 mt-10 lg:mx-96 md:mx-40 md:min-h-full shadow-md hover:shadow-xl transition duration-400 ease-in-out">
+    <div class="rounded-lg bg-white p-10 mt-10 lg:mx-96 md:mx-40 md:min-h-full shadow-md hover:shadow-xl transition duration-400 ease-in-out">
         <div id="modalBox" class="text-center mx-auto hidden">
             <form action="{{ route('savetask') }}" method="post">
                 @csrf
