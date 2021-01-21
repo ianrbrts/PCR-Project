@@ -32,6 +32,8 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 
+
+// databse queries related to tasks 
 Route::post('/postTask', [TaskController::class, 'saveTask'])->name('savetask');
 Route::post('/updateTask', [TaskController::class, 'updateTask'])->name('updatetask');
 Route::post('/deleteTask/{task}', [TaskController::class, 'deleteTask'])->name('deletetask');
