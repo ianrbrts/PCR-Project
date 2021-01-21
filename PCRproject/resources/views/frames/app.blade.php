@@ -11,7 +11,7 @@
 
     <title>Taskify</title>
 </head>
-<body class="bg-gray-100 flex-row">
+<body class="bg-blue-50 flex-row">
     <!-- nav bar at the top -->
     <div class=" block bg-white p-10 w-screen flex justify-between shadow-md">
         <p class="text-2xl uppercase font-semibold tracking-widest text-blue-500 uppercase">Taskify</p>
