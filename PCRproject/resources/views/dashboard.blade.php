@@ -7,19 +7,19 @@
         <!-- checking if there are any posts in the database, then showing a table row for each task -->
         @if ($tasks->count())
         <p class="text-left text-2xl font-semibold mx-auto">Shared tasks - Home</p>
-        <table class="overflow-hidden flex-row border-collapse rounded-lg mx-auto mt-10 shadow-xl">
-            <thead>
+        <table class="min-w-full overflow-hidden  border-collapse rounded-lg mx-auto mt-10 shadow-xl">
+            <thead class="text-base">
                     <tr>
-                        <th class="w-1/2 pb-5 pt-6 bg-gray-200 text-blue-500">Task description</th>
-                        <th class="w-1/5 pb-5 pt-6 bg-gray-200 text-blue-500">Date posted</th>
-                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Priority</th>
-                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Author</th>
-                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Due</th>
-                        <th class="w-1/8 pb-5 pt-6 bg-gray-200 text-blue-500">Status</th>
-                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500">Assigned to</th>
-                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500">Last updated</th>
-                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500"></th>
-                        <th class="w-1/6 pb-5 pt-6 bg-gray-200 text-blue-500"></th>
+                        <th class="w-1/2 pb-5 pt-6 bg-gray-200 text-blue-500">Task</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Priority</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Due</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Author</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Status</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500">For</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Posted</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Updated</th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500"></th>
+                        <th class="pb-5 pt-6 bg-gray-200 text-blue-500"></th>
                     </tr>
             </thead>
 
@@ -27,17 +27,17 @@
                 <!-- taking in the tasks collection one at a time as an object called task
                 we can get each attribute from the collection here -->
                 @foreach ($tasks as $task)
-                    <tbody class="flex-row">
+                    <tbody>
                         <tr class="rounded-xl bg-gray-100 hover:bg-white overflow-hidden">
-                            <td class="px-4 pt-5 text-center pb-5 ">{{ $task->taskdesc }}</td>
-                            <td class="px-4 text-center pb-5">{{ $task->created_at->format('M j, h:ia') }}</td>
-                            <td class="px-4 text-center pb-5 ">{{ $task->priority }}</td>
-                            <td class="px-4 text-center pb-5 ">{{ $task->user->name }}</td>
-                            <td class="px-4 text-center pb-5 text-sm">{{ date('M j, h:ia', strtotime($task->dueDate)) }}</td>
-                            <td class="px-4 text-center pb-5 text-sm">{{ $task->status }}</td>
-                            <td class="px-4 text-center pb-5 ">{{ $task->assignedTo }}</td>
-                            <td class="px-4 text-center pb-5 ">{{ $task->updated_at->format('M j, h:ia') }}</td>
-                            <td class="px-4 text-center pb-5 ">
+                            <td class="text-left px-5 text-center py-5">{{ $task->taskdesc }}</td>
+                            <td class="px-4 text-center py-5 ">{{ $task->priority }}</td>
+                            <td class="px-4 text-center py-5 text-base">{{ date('M j, h:ia', strtotime($task->dueDate)) }}</td>
+                            <td class="px-4 text-center py-5 ">{{ $task->user->name }}</td>
+                            <td class="px-4 text-center py-5">{{ $task->status }}</td>
+                            <td class="px-4 text-center py-5">{{ $task->assignedTo }}</td>
+                            <td class="px-4 text-center py-5 text-base">{{ $task->created_at->format('M j, h:ia') }}</td>
+                            <td class="px-4 text-center py-5 text-base">{{ $task->updated_at->format('M j, h:ia') }}</td>
+                            <td class="px-4 text-center py-5 ">
                                 <button id= "editbutton{{ $task->id }}" class="text-sm bg-blue-500 rounded-3xl px-3 py-2 shadow-md text-white focus:outline-none hover:bg-blue-800">
                                     Edit
                                 </button>
@@ -45,7 +45,7 @@
                             <!-- checking if the task was created by the logged in user
                             if so, we display the delete button -->
                             @if ($task->createdByMe(auth()->user()))
-                                <td class="px-4 text-center pb-5 ">
+                                <td class="px-4 text-center">
                                     <form action="{{ route('deletetask', $task) }}" method="post">
                                     @csrf
                                         <button id="deletebutton" type="submit" class="text-sm bg-red-500 rounded-3xl px-3 py-2 shadow-md text-white focus:outline-none hover:bg-red-800">
@@ -64,10 +64,17 @@
                                 by the jquery script -->
                                 <div>
                                     <div class="text-center mx-auto hidden" id="editmenu{{ $task->id }}">
+                                    
 
                                     <form action="{{ route('updatetask') }}" method="post">
                                         @csrf
                                         <div class="shadow-md p-5 rounded-lg lg:w-72 mx-auto">
+                                            <!-- code for x button- handled by jquery script -->
+                                            <div class="float-right cursor-pointer" id="closebutton{{ $task->id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
 
                                             <div class="invisible">
                                                 <input type="text" value="{{ $task->id }}" name="id">
@@ -137,6 +144,10 @@
                         $(document).ready(function(){
                             $("#editbutton{{ $task->id }}").click(function() {
                                 $("#editmenu{{ $task->id }}").slideToggle();                                
+                            });
+
+                            $("#closebutton{{ $task->id }}").click(function(){
+                                $("#editmenu{{ $task->id }}").slideToggle();
                             });
                         });
                     </script>
