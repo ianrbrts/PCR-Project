@@ -17,3 +17,6 @@
 
 ### Running the website 
 * If all other requirements have been satisfied, you can run the website by going into the project directory and running `php artisan serve` this will likely run the site on a localhost:8000 port.
+
+## Unit Tests
+* A few simple PHPUnit tests can be found in `PCRProject/tests/Unit/TestTask.php`. These are basic tests to ensure that a few of the functions will throw an exception if given an incorrect value.
