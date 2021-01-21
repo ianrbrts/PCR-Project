@@ -10,7 +10,7 @@
         <table class="min-w-full overflow-hidden  border-collapse rounded-lg mx-auto mt-10 shadow-xl">
             <thead class="text-base">
                     <tr>
-                        <th class="w-1/2 pb-5 pt-6 bg-gray-200 text-blue-500">Task</th>
+                        <th class="w-1/2 pb-5 pt-6 bg-gray-200 text-left pl-5 text-blue-500">Task</th>
                         <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Priority</th>
                         <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Due</th>
                         <th class="pb-5 pt-6 bg-gray-200 text-blue-500">Author</th>
@@ -29,7 +29,7 @@
                 @foreach ($tasks->sortByDesc('created_at') as $task)
                     <tbody>
                         <tr class="rounded-xl bg-gray-100 hover:bg-white overflow-hidden">
-                            <td class="text-left px-5 text-center py-5">{{ $task->taskdesc }}</td>
+                            <td class="text-left py-5 pl-5">{{ $task->taskdesc }}</td>
                             <td class="px-4 text-center py-5 ">{{ $task->priority }}</td>
                             <td class="px-4 text-center py-5 text-base">{{ date('M j, h:ia', strtotime($task->dueDate)) }}</td>
                             <td class="px-4 text-center py-5 ">{{ $task->user->name }}</td>

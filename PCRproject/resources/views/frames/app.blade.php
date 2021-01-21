@@ -40,7 +40,7 @@
     </div>
 
     <!-- form for filling out task info -->
-    <div class="rounded-lg bg-white p-10 mt-10 lg:mx-96 md:mx-40 md:min-h-full shadow-md hover:shadow-xl transition duration-400 ease-in-out">
+    <div class="w-9/12 min-w-min mx-auto rounded-lg bg-white p-10 mt-10 md:min-h-full shadow-md hover:shadow-xl transition duration-400 ease-in-out">
         <div id="modalBox" class="text-center mx-auto hidden">
 
             

@@ -7,7 +7,7 @@
 
     <title>Taskify Login</title>
 </head>
-<body class="bg-gray-100 flex-row">
+<body class="bg-blue-50 flex-row">
     <div class=" block bg-white rounded-xl p-10 w-screen flex justify-between">
         <p class="text-2xl uppercase font-semibold tracking-widest text-blue-500 uppercase">Taskify</p>
 
