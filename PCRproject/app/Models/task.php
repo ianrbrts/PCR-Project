@@ -21,4 +21,10 @@ class task extends Model
         return $this->belongsTo(User::class);
     }
 
+    // method for checking if a task has been created by the logged in user
+    // here for delete button functionality
+    public function createdByMe(User $user){
+        return $user->id == $this->user_id;
+    }
+
 }
